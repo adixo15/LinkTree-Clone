@@ -2,9 +2,14 @@
 import React, { useState } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
+
+  // Only show navbar on home (/) and generate page
+  if (pathname !== "/" && pathname !== "/generate") return null
 
   return (
     <nav className="bg-white w-full md:w-[85vw] sticky top-0 md:top-6 md:left-[7.5vw] rounded-full shadow-lg z-50 px-4 md:px-8 py-4">
@@ -41,7 +46,7 @@ const Navbar = () => {
         {/* Desktop Buttons */}
         <div className="hidden md:flex gap-4">
           <Link
-            href="/login"
+            href="/Login"
             className="px-6 py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200"
           >
             Log in
