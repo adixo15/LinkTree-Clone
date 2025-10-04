@@ -63,11 +63,6 @@ export default function Home() {
           />
         </div>
       </section>
-
-      {/* Next Section */}
-      <section className="bg-red-500 min-h-screen flex items-center justify-center text-white text-3xl font-bold">
-        Home page
-      </section>
     </main>
   );
 }

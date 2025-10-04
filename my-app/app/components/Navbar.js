@@ -3,10 +3,12 @@ import React, { useState } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { useSession, signOut } from "next-auth/react"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
+  const { data: session } = useSession()
 
   // Only show navbar on home (/) and generate page
   if (pathname !== "/" && pathname !== "/generate") return null
@@ -45,18 +47,32 @@ const Navbar = () => {
 
         {/* Desktop Buttons */}
         <div className="hidden md:flex gap-4">
-          <Link
-            href="/Login"
-            className="px-6 py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200"
-          >
-            Log in
-          </Link>
-          <Link
-            href="/signup"
-            className="px-6 py-2 rounded-full bg-black text-white hover:bg-gray-900"
-          >
-            Sign up free
-          </Link>
+          {session ? (
+            <>
+              <span className="text-gray-800 font-medium">{session.user?.name}</span>
+              <button
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="px-6 py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="px-6 py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200"
+              >
+                Log in
+              </Link>
+              <Link
+                href="/signup"
+                className="px-6 py-2 rounded-full bg-black text-white hover:bg-gray-900"
+              >
+                Sign up free
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Toggle */}
@@ -78,18 +94,32 @@ const Navbar = () => {
           <Link href="/pricing" className="w-full text-center py-2 rounded hover:bg-gray-100">Pricing</Link>
 
           <div className="flex flex-col gap-2 mt-2 w-full">
-            <Link
-              href="/login"
-              className="w-full text-center px-6 py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200"
-            >
-              Log in
-            </Link>
-            <Link
-              href="/signup"
-              className="w-full text-center px-6 py-2 rounded-full bg-black text-white hover:bg-gray-900"
-            >
-              Sign up free
-            </Link>
+            {session ? (
+              <>
+                <span className="w-full text-center py-2 rounded bg-gray-100 text-gray-800">{session.user?.name}</span>
+                <button
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="w-full text-center px-6 py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="w-full text-center px-6 py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200"
+                >
+                  Log in
+                </Link>
+                <Link
+                  href="/signup"
+                  className="w-full text-center px-6 py-2 rounded-full bg-black text-white hover:bg-gray-900"
+                >
+                  Sign up free
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}
