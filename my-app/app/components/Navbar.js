@@ -14,7 +14,8 @@ const Navbar = () => {
   if (pathname !== "/" && pathname !== "/generate") return null
 
   return (
-    <nav className="bg-white w-full md:w-[85vw] sticky top-0 md:top-6 md:left-[7.5vw] rounded-full shadow-lg z-50 px-4 md:px-8 py-4">
+    <nav className="bg-white w-full md:w-[85vw] sticky top-0 md:top-6 md:left-[7.5vw] rounded-xl md:rounded-full shadow-lg z-50 px-4 md:px-8 py-4">
+
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-2">
@@ -67,7 +68,7 @@ const Navbar = () => {
               </Link>
               <Link
                 href="/signup"
-                className="px-6 py-2 rounded-full bg-black text-white hover:bg-gray-900"
+                className="px-6 py-2 rounded-xl bg-black text-white hover:bg-gray-900"
               >
                 Sign up free
               </Link>
@@ -96,10 +97,12 @@ const Navbar = () => {
           <div className="flex flex-col gap-2 mt-2 w-full">
             {session ? (
               <>
-                <span className="w-full text-center py-2 rounded bg-gray-100 text-gray-800">{session.user?.name}</span>
+                <span className="w-full text-center py-2 rounded-xl bg-gray-100 text-gray-800">
+                  {session.user?.name}
+                </span>
                 <button
                   onClick={() => signOut({ callbackUrl: "/" })}
-                  className="w-full text-center px-6 py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200"
+                  className="w-full text-center py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200"
                 >
                   Logout
                 </button>
@@ -108,13 +111,13 @@ const Navbar = () => {
               <>
                 <Link
                   href="/login"
-                  className="w-full text-center px-6 py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200"
+                  className="w-full text-center py-2 rounded-xl bg-gray-100 text-gray-800 hover:bg-gray-200"
                 >
                   Log in
                 </Link>
                 <Link
                   href="/signup"
-                  className="w-full text-center px-6 py-2 rounded-full bg-black text-white hover:bg-gray-900"
+                  className="w-full text-center py-2 rounded-xl bg-black text-white hover:bg-gray-900"
                 >
                   Sign up free
                 </Link>
